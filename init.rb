@@ -1,1 +1,1 @@
-require 'lib/attachment_fu'
+require File.expand_path( '../lib/attachment_fu', __FILE__ )
