@@ -297,6 +297,22 @@ module Technoweenie # :nodoc:
             s3_url(args)
           end
         end
+        
+        def is_file_type( extension )
+          return URI.parse( s3_url ).path.upcase.ends_with?( extension.upcase )
+        end
+
+        def load_file
+          return create_temp_file
+        end
+
+        def path_to_public_file( thumbnail = nil )
+          url_for_s3( thumbnail )
+        end
+
+        def path_to_file( thumbnail = nil )
+          url_for_s3( thumbnail )
+        end
 
         # All private objects are accessible via an authenticated GET request to the S3 servers. You can generate an
         # authenticated url for an object like this:
@@ -383,6 +399,24 @@ module Technoweenie # :nodoc:
 
           @old_filename = nil
           true
+        end
+        
+        private
+
+        def url_for_s3(thumbnail = nil)
+          if base_path =~ /.?private\//
+            if thumbnail
+              return authenticated_s3_url( "thumbnail", :expires_in => 5.minutes, :use_ssl => true )
+            else
+              return authenticated_s3_url( :expires_in => 5.minutes, :use_ssl => true )
+            end
+          else
+            if thumbnail
+              return s3_url( "thumbnail" )
+            else
+              return s3_url
+            end
+          end
         end
       end
     end

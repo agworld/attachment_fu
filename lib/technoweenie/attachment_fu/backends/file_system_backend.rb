@@ -70,6 +70,30 @@ module Technoweenie # :nodoc:
         def public_filename(thumbnail = nil)
           full_filename(thumbnail).gsub %r(^#{Regexp.escape(base_path)}), ''
         end
+        
+        def is_file_type( extension )
+          return path_to_file.upcase.ends_with?( extension.upcase )
+        end
+
+        def load_file
+          return File.read( path_to_file )
+        end
+
+        def path_to_public_file( thumbnail = nil )
+          if public_filename =~ /\/private\//
+            return public_filename
+          else
+            return "./public#{public_filename}"
+          end
+        end
+
+        def path_to_file( thumbnail = nil )
+          if public_filename =~ /\/private\//
+            return public_filename
+          else
+            return "./public#{public_filename}"
+          end
+        end
 
         def notify_rename
           @old_filename = full_filename unless filename.nil? || @old_filename
