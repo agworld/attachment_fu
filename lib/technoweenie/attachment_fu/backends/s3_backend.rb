@@ -302,8 +302,8 @@ module Technoweenie # :nodoc:
           return URI.parse( s3_url ).path.upcase.ends_with?( extension.upcase )
         end
 
-        def load_file
-          return create_temp_file
+        def load_file( thumbnail = nil )
+          return File.read( path_to_file( thumbnail ) )
         end
 
         def path_to_public_file( thumbnail = nil )
