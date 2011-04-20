@@ -303,7 +303,7 @@ module Technoweenie # :nodoc:
         end
 
         def load_file( thumbnail = nil )
-          return File.read( path_to_file( thumbnail ) )
+          return open( path_to_file( thumbnail ) )
         end
 
         def path_to_public_file( thumbnail = nil )
