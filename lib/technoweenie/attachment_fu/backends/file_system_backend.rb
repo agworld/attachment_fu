@@ -76,10 +76,6 @@ module Technoweenie # :nodoc:
         end
 
         def load_file( thumbnail = nil )
-          return File.read( path_to_file( thumbnail ) )
-        end
-        
-        def load_file( thumbnail = nil )
           file = File.open( path_to_file( thumbnail ) )
           
           if block_given?
