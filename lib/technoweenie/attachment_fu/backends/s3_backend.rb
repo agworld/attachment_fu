@@ -303,7 +303,19 @@ module Technoweenie # :nodoc:
         end
 
         def load_file( thumbnail = nil )
-          return open( path_to_file( thumbnail ) )
+          tempfile = open( path_to_file( thumbnail ) )
+          
+          if block_given?
+            begin
+              yield(tempfile)
+            ensure
+              tempfile.close
+            end
+
+            nil
+          else
+            tempfile
+          end
         end
 
         def path_to_public_file( thumbnail = nil )

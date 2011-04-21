@@ -78,6 +78,22 @@ module Technoweenie # :nodoc:
         def load_file( thumbnail = nil )
           return File.read( path_to_file( thumbnail ) )
         end
+        
+        def load_file( thumbnail = nil )
+          file = File.open( path_to_file( thumbnail ) )
+          
+          if block_given?
+            begin
+              yield(file)
+            ensure
+              file.close
+            end
+
+            nil
+          else
+            file
+          end
+        end
 
         def path_to_public_file( thumbnail = nil )
           if public_filename =~ /\/private\//
