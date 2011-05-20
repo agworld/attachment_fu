@@ -92,18 +92,14 @@ module Technoweenie # :nodoc:
         end
 
         def path_to_public_file( thumbnail = nil )
-          if public_filename =~ /\/private\//
-            return public_filename
-          else
-            return "./public#{public_filename}"
-          end
+          return public_filename( thumbnail )
         end
 
         def path_to_file( thumbnail = nil )
           if public_filename =~ /\/private\//
-            return public_filename
+            return public_filename( thumbnail )
           else
-            return "./public#{public_filename}"
+            return "./public#{ public_filename( thumbnail ) }"
           end
         end
 
