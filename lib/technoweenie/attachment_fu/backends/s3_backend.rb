@@ -418,13 +418,13 @@ module Technoweenie # :nodoc:
         def url_for_s3(thumbnail = nil)
           if base_path =~ /.?private\//
             if thumbnail
-              return authenticated_s3_url( "thumbnail", :expires_in => 5.minutes, :use_ssl => true )
+              return authenticated_s3_url( thumbnail, :expires_in => 5.minutes, :use_ssl => true )
             else
               return authenticated_s3_url( :expires_in => 5.minutes, :use_ssl => true )
             end
           else
             if thumbnail
-              return s3_url( "thumbnail" )
+              return s3_url( thumbnail )
             else
               return s3_url
             end
